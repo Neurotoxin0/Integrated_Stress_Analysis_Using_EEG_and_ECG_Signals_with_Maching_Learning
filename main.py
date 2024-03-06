@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.decomposition import PCA
+from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
@@ -18,12 +19,13 @@ os.chdir(Path)
 warnings.filterwarnings('ignore')
 random.seed(42)
 np.random.seed(42)
+np.int = np.int32
 #sns.set()
 
 
 def main():
     # EEG data
-    data_eeg = pd.read_excel(config.eeg_file,header=None)
+    data_eeg = pd.read_excel(config.eeg_file, header=None)
     data_eeg = data_eeg.fillna(method='ffill')  # fill the NaN with the previous non-NaN value
     data_eeg.columns = data_eeg.iloc[1]
     data_eeg = data_eeg.iloc[2:]    # remove the first two rows
@@ -50,18 +52,21 @@ def main():
     X = scaler.fit_transform(X)
     y = data[config.target]    # target variable
 
-    # encode the target variable
+    # encode the target variable and save the encoder
     lbe = LabelEncoder()
     data[config.target] = lbe.fit_transform(data[config.target])   
+    d = pickle.dumps(lbe)
+    if not os.path.exists(config.model_folder): os.makedirs(config.model_folder)
+    with open(config.model_folder + 'LBE.pkl', 'wb+') as f: f.write(d)  # wb+ -> write binary
 
     # perform PCA
     PCA_n(X)
 
     # save PCA model
     X_pca, pca = pcaX(X,0.95)
-    data = pickle.dumps(pca)
+    d = pickle.dumps(pca)
     if not os.path.exists(config.model_folder): os.makedirs(config.model_folder)
-    with open(config.model_folder + 'PCA.pkl', 'wb+') as f: f.write(data)   # wb+ -> write binary
+    with open(config.model_folder + 'PCA.pkl', 'wb+') as f: f.write(d)
         
     # optimization
     best_params_dic = {}
@@ -98,9 +103,9 @@ def main():
         print(metrics_test)
 
         # save model
-        data = pickle.dumps(model)
+        d = pickle.dumps(model)
         if not os.path.exists(config.model_folder): os.makedirs(config.model_folder)
-        with open(config.model_folder + model_name + '.pkl','wb+') as f: f.write(data)
+        with open(config.model_folder + model_name + '.pkl','wb+') as f: f.write(d)
         print('\n')
         
     eval_df = plot_evaluation_comparison(eval_dic)
@@ -118,6 +123,8 @@ def main():
             print(f"Best model: {best_model}\n\n")
             break
 
+    # Cross Validation Scores  
+    model_CrossValScoresPlot(models, X, y, scoring = 'accuracy', cv = 5)
 
 
 def PCA_n(X_scaled):    #主成分分析
@@ -348,6 +355,68 @@ def plot_evaluation_comparison(eval_dic, metric_x = 'Metric', metric_hue = 'Mode
 	plt.show()
 
 	return eval_df
+
+
+
+def model_CrossValScoresPlot(models:list, X, y, scoring = 'accuracy', cv = 3, plots_type = ['boxplot', 'barplot']):
+	"""
+    Plot cross-validation scores for multiple models.
+
+    Parameters:
+    - models: list
+              List of unfitted models with parameters, e.g., [Model(param=1)].
+    - X: numpy array or pandas DataFrame, shape (n_samples, n_features)
+         Feature matrix.
+    - y: numpy array or pandas Series, shape (n_samples,)
+         Target vector.
+    - scoring: str, default='accuracy'
+               Scoring method for cross-validation.
+    - cv: int or cross-validation generator, default=3
+          Number of folds for cross-validation.
+    - plots_type: list of str, default=['boxplot', 'barplot']
+                  Types of plots to generate ('boxplot' and/or 'barplot').
+
+    Returns:
+    - df_score: pandas DataFrame
+                DataFrame containing cross-validation scores for each model.
+    """
+	score_dic = {}
+     
+	for model in models:
+		print(f"- Cross validation: {type(model).__name__}")
+		score_dic[type(model).__name__] = cross_val_score(model, X, y, scoring = scoring, cv = cv)
+	df_score = pd.DataFrame(score_dic)
+
+	# box plot
+	if 'boxplot' in plots_type:
+		plt.figure(figsize = (12, 6))
+		plt.boxplot([df_score[col] for col in df_score.columns])
+		s = pd.concat([df_score[col].rename("scoring") for col in df_score.columns], axis=0)
+		plt.ylim(s.min() * 0.7, s.max() * 1.2)
+		plt.xticks(range(1, len(df_score.columns) + 1), df_score.columns)
+		plt.ylabel(scoring)
+		plt.xlabel("Models")
+		plt.title("Model Comparison - Cross Validation")
+		plt.savefig("Model Comparison - Cross Validation.jpg",dpi=300)
+		plt.show()
+	
+    # bar plot
+	if 'barplot' in plots_type:
+		score_mean = df_score.mean(axis = 0)
+		plt.figure(figsize = (12, 6))
+		# 画柱形图
+		x = score_mean.index
+		y = score_mean
+		plt.bar(x, y)
+		for i, j in zip(range(len(x)), y):
+			plt.text(i, j, '{:.4}'.format(j), va = 'bottom', ha = 'center')
+		plt.ylabel(scoring)
+		plt.xlabel("Models")
+		plt.ylim(y.min() * 0.7, y.max() * 1.2)
+		plt.title(f"Model Comparison - {scoring}")
+		plt.savefig(f"Model Comparison - {scoring}.jpg", dpi = 300)
+		plt.show()
+	return df_score
 
 
 

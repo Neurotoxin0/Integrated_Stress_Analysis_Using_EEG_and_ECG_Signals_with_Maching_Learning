@@ -1,13 +1,14 @@
 import os, pickle
 import config
 import numpy as np
-from sklearn.preprocessing import LabelEncoder
 
 
 Path = (os.path.split(os.path.realpath(__file__))[0] + "/").replace("\\\\", "/").replace("\\", "/")
 os.chdir(Path)
 
-lbe = LabelEncoder()
+
+models = ['DecisionTreeClassifier', 'RandomForestClassifier', 'GradientBoostingClassifier', 'SVC', 'MLPClassifier']
+model = models[4]
 
 
 inputs = np.array(
@@ -27,12 +28,14 @@ inputs = np.array(
        -0.38110601, -0.33821837]]
 )
 
-
-with open(config.model_folder + 'MLPClassifier.pkl','rb') as f:
-	model = pickle.load(f)
-
+with open(config.model_folder + 'LBE.pkl','rb') as f:
+	lbe = pickle.load(f)
+	
 with open(config.model_folder + 'PCA.pkl','rb') as f:
 	pca = pickle.load(f)
+	
+with open(config.model_folder + model + '.pkl','rb') as f:
+	model = pickle.load(f)
 
 pca_input = pca.transform(inputs)
 y_pred = model.predict(pca_input)
