@@ -25,8 +25,8 @@ np.int = np.int32
 
 def main():
     # EEG data
-    data_eeg = pd.read_excel(config.eeg_file, header=None)
-    data_eeg = data_eeg.fillna(method='ffill')  # fill the NaN with the previous non-NaN value
+    data_eeg = pd.read_excel(config.eeg_file, header = None)
+    data_eeg = data_eeg.fillna(method = 'ffill')  # fill the NaN with the previous non-NaN value
     data_eeg.columns = data_eeg.iloc[1]
     data_eeg = data_eeg.iloc[2:]    # remove the first two rows
     #data_eeg = data_eeg.iloc[:,:11]
@@ -50,11 +50,11 @@ def main():
     scaler = StandardScaler()   # standardize the data to have a mean of 0 and a standard deviation of 1
     X = data.drop(columns=['Segment', 'Subject (No.)', 'Gender'])
     X = scaler.fit_transform(X)
-    y = data[config.target]    # target variable
 
     # encode the target variable and save the encoder
     lbe = LabelEncoder()
     data[config.target] = lbe.fit_transform(data[config.target])   
+    y = data[config.target]    # target variable
     d = pickle.dumps(lbe)
     if not os.path.exists(config.model_folder): os.makedirs(config.model_folder)
     with open(config.model_folder + 'LBE.pkl', 'wb+') as f: f.write(d)  # wb+ -> write binary
@@ -63,7 +63,7 @@ def main():
     PCA_n(X)
 
     # save PCA model
-    X_pca, pca = pcaX(X,0.95)
+    X_pca, pca = pcaX(X, 0.95)
     d = pickle.dumps(pca)
     if not os.path.exists(config.model_folder): os.makedirs(config.model_folder)
     with open(config.model_folder + 'PCA.pkl', 'wb+') as f: f.write(d)
@@ -71,7 +71,7 @@ def main():
     # optimization
     best_params_dic = {}
     best_models = []
-    for Model,params in config.Model_params.items():
+    for Model, params in config.Model_params.items():
         opt, best_params_, best_score_ = bayes_opt(Model, params, X_pca, y, n_iter = 10, scoring = 'f1_weighted', cv = 3)
         best_params_dic[Model] = dict(best_params_)
         best_models.append(Model(**dict(best_params_)))
@@ -107,7 +107,7 @@ def main():
         if not os.path.exists(config.model_folder): os.makedirs(config.model_folder)
         with open(config.model_folder + model_name + '.pkl','wb+') as f: f.write(d)
         print('\n')
-        
+
     eval_df = plot_evaluation_comparison(eval_dic)
 
     # find the best model
@@ -147,7 +147,7 @@ def PCA_n(X_scaled):    #主成分分析
     plt.ylabel("explained variance ratio(%)", fontsize = 15)
     plt.xticks(fontsize = 12)
     plt.yticks(fontsize = 12)
-    plt.show()
+    if config.show_plots: plt.show()
 
 
 def pcaX(X_scaled, n):
@@ -352,7 +352,7 @@ def plot_evaluation_comparison(eval_dic, metric_x = 'Metric', metric_hue = 'Mode
 	plt.legend(loc = 0, prop = {'size':8})
 	plt.tight_layout()
 	plt.savefig((f"{dataset_name} - " if dataset_name else '') + f"Comparison.jpg", dpi = 300)
-	plt.show()
+	if config.show_plots: plt.show()
 
 	return eval_df
 
@@ -398,7 +398,7 @@ def model_CrossValScoresPlot(models:list, X, y, scoring = 'accuracy', cv = 3, pl
 		plt.xlabel("Models")
 		plt.title("Model Comparison - Cross Validation")
 		plt.savefig("Model Comparison - Cross Validation.jpg",dpi=300)
-		plt.show()
+		if config.show_plots: plt.show()
 	
     # bar plot
 	if 'barplot' in plots_type:
@@ -415,7 +415,8 @@ def model_CrossValScoresPlot(models:list, X, y, scoring = 'accuracy', cv = 3, pl
 		plt.ylim(y.min() * 0.7, y.max() * 1.2)
 		plt.title(f"Model Comparison - {scoring}")
 		plt.savefig(f"Model Comparison - {scoring}.jpg", dpi = 300)
-		plt.show()
+		if config.show_plots: plt.show()
+          
 	return df_score
 
 
