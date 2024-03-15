@@ -1,6 +1,7 @@
+import config
 import numpy as np
+import pandas as pd
 
-# 
 
 np.random.seed(42)  # For reproducibility
 
@@ -12,11 +13,13 @@ def generate():
 
     :return: A simulated input example
     """
+    
+
     # Generate a random example with values that might represent standardized EEG and ECG features
-    simulated_input_example = np.random.normal(0, 1, 67)
+    simulated_input_example = np.random.normal(0, 1, (1, len(config.features)))
 
     # Reshape for the format similar to the final input structure provided
-    simulated_input_example = simulated_input_example.reshape(1, -1)  
+    simulated_input_example = pd.DataFrame(simulated_input_example, columns = config.features)
 
     return simulated_input_example
 

@@ -32,6 +32,9 @@ inputs = np.array(
 # use the test_data_generator to generate a random input
 inputs = test_data_generator.generate()
 
+with open(config.model_folder + 'Scaler.pkl','rb') as f:
+	scaler = pickle.load(f)
+
 with open(config.model_folder + 'LBE.pkl','rb') as f:
 	lbe = pickle.load(f)
 	
@@ -41,6 +44,7 @@ with open(config.model_folder + 'PCA.pkl','rb') as f:
 with open(config.model_folder + model + '.pkl','rb') as f:
 	model = pickle.load(f)
 
+inputs = scaler.transform(inputs)
 pca_input = pca.transform(inputs)
 y_pred = model.predict(pca_input)
 pred_label = lbe.inverse_transform(y_pred)

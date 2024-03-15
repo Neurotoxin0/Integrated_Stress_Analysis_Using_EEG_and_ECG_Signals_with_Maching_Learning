@@ -17,12 +17,7 @@ ecg_file = "D:\CloudFile\SynologyDrive\Don\Ottawa\Study\CSI 7163 - Multimeida Co
 model_folder = Path + "models/"
 show_plots = False
 
-features = ['Mean HR (BPM)', 'AVNN (ms)', 'SDNN (ms)',
-       'NN50 (beats)', 'pNN50 (%)', 'RMSSD (ms)', 'LF (ms2)', 'LF Norm (n.u.)',
-       'HF (ms2)', 'HF Norm (n.u.)', 'LF/HF Ratio', 'Fp 1', 'Fp 2',
-       'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4',
-       'T 3', 'T 4', 'P 3', 'P 4']
-
+features = ['Mean HR (BPM)', 'AVNN (ms)', 'SDNN (ms)', 'NN50 (beats)', 'pNN50 (%)', 'RMSSD (ms)', 'LF (ms2)', 'LF Norm (n.u.)', 'HF (ms2)', 'HF Norm (n.u.)', 'LF/HF Ratio', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4']
 target = 'Segment'
 
 Model_params = {

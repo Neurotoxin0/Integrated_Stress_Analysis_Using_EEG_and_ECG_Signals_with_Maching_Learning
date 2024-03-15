@@ -45,11 +45,15 @@ def main():
 
     # merge ECG and EEG data
     data = pd.merge(data_ecg, data_eeg, on = ['Segment', 'Subject (No.)', 'Gender'])
+    #print(data.columns.tolist())  # debug
 
     # standardize the data
     scaler = StandardScaler()   # standardize the data to have a mean of 0 and a standard deviation of 1
     X = data.drop(columns=['Segment', 'Subject (No.)', 'Gender'])
     X = scaler.fit_transform(X)
+    d = pickle.dumps(scaler)
+    if not os.path.exists(config.model_folder): os.makedirs(config.model_folder)
+    with open(config.model_folder + 'Scaler.pkl', 'wb+') as f: f.write(d)  # wb+ -> write binary
 
     # encode the target variable and save the encoder
     lbe = LabelEncoder()
@@ -57,7 +61,7 @@ def main():
     y = data[config.target]    # target variable
     d = pickle.dumps(lbe)
     if not os.path.exists(config.model_folder): os.makedirs(config.model_folder)
-    with open(config.model_folder + 'LBE.pkl', 'wb+') as f: f.write(d)  # wb+ -> write binary
+    with open(config.model_folder + 'LBE.pkl', 'wb+') as f: f.write(d)
 
     # perform PCA
     PCA_n(X)
