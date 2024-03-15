@@ -356,7 +356,7 @@ def plot_evaluation_comparison(eval_dic, metric_x = 'Metric', metric_hue = 'Mode
     plt.legend(loc = 0, prop = {'size':8})
     plt.tight_layout()
     if not os.path.exists(config.plot_folder): os.makedirs(config.plot_folder)
-    plt.savefig((f"{config.plot_folder} + {dataset_name} - " if dataset_name else '') + f"Comparison.jpg", dpi = 300)
+    plt.savefig(f"{config.plot_folder}" + (f"{dataset_name} - " if dataset_name else '') + f"Comparison.jpg", dpi = 300)
     if config.show_plots: plt.show()
 
     return eval_df
