@@ -12,9 +12,11 @@ from sklearn.tree import DecisionTreeClassifier
 
 Path = (os.path.split(os.path.realpath(__file__))[0] + "/").replace("\\\\", "/").replace("\\", "/")
 ##################################################Config##################################################
-eeg_file = "D:\CloudFile\SynologyDrive\Don\Ottawa\Study\CSI 7163 - Multimeida Communications\Project\Phase 3\StressDetML_data_IEEE\EEG (EO, AC1, AC2).xlsx"
-ecg_file = "D:\CloudFile\SynologyDrive\Don\Ottawa\Study\CSI 7163 - Multimeida Communications\Project\Phase 3\StressDetML_data_IEEE\ECG (EO, AC1, AC2).xlsx"
-model_folder = Path + "models/"
+eeg_file = "D:\CloudFile\SynologyDrive\Don\Ottawa\Study\CSI 7163 - Multimeida Communications\Project\Phase 3\Dataset\EEG (EO, AC1, AC2).xlsx"
+ecg_file = "D:\CloudFile\SynologyDrive\Don\Ottawa\Study\CSI 7163 - Multimeida Communications\Project\Phase 3\Dataset\ECG (EO, AC1, AC2).xlsx"
+Assets_folder = Path + "Assets/"
+model_folder = Assets_folder + "models/"
+plot_folder = Assets_folder + "plots/"
 show_plots = False
 
 features = ['Mean HR (BPM)', 'AVNN (ms)', 'SDNN (ms)', 'NN50 (beats)', 'pNN50 (%)', 'RMSSD (ms)', 'LF (ms2)', 'LF Norm (n.u.)', 'HF (ms2)', 'HF Norm (n.u.)', 'LF/HF Ratio', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4', 'Fp 1', 'Fp 2', 'F 3', 'F 4', 'T 3', 'T 4', 'P 3', 'P 4']

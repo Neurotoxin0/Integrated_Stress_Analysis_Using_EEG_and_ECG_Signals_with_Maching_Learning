@@ -321,7 +321,7 @@ def model_train(model, X_train, y_train, X_test = None, y_test = None, model_typ
 
 
 def plot_evaluation_comparison(eval_dic, metric_x = 'Metric', metric_hue = 'Model', dataset_name = None):
-	"""
+    """
     Plot a comparison of evaluation metrics for different models.
 
     metric_dic looks like: {'model_name':{'metric_name': value}}
@@ -332,96 +332,98 @@ def plot_evaluation_comparison(eval_dic, metric_x = 'Metric', metric_hue = 'Mode
     - metric_x: str, default='Metric'
                 Name of the metric to be plotted on the x-axis.
     - metric_hue: str, default='Model'
-                  Name of the metric used for coloring (hue) the bars.
+                    Name of the metric used for coloring (hue) the bars.
     - dataset_name: str or None, default=None
                     Name of the dataset (optional).
 
     Returns:
     - eval_df: pandas DataFrame
-               DataFrame containing the evaluation metrics for plotting.
+                DataFrame containing the evaluation metrics for plotting.
     """
-	# converts to pd.dataframe
-	eval_df = pd.DataFrame([[md, mt.title(), v] for md, dic in eval_dic.items() for mt, v in dic.items()],
-							columns= ['Model','Metric','Value'])
-	eval_df.sort_values(by=['Metric', 'Value'], inplace=True)
-	eval_df.reset_index(drop = True, inplace = True)
-	print(eval_df)
+    # converts to pd.dataframe
+    eval_df = pd.DataFrame([[md, mt.title(), v] for md, dic in eval_dic.items() for mt, v in dic.items()],
+                            columns= ['Model','Metric','Value'])
+    eval_df.sort_values(by=['Metric', 'Value'], inplace=True)
+    eval_df.reset_index(drop = True, inplace = True)
+    print(eval_df)
 
     # plot
-	plt.figure(figsize = (10,7))
-	sns.barplot(data = eval_df, x = metric_x, y = 'Value', hue = metric_hue)
-	plt.title(f"Model Comparison", fontsize = 15)
-	plt.xticks(rotation = 0)
-	plt.ylim(eval_df['Value'].min() * 0.8, eval_df['Value'].max() * 1.05)
-	plt.legend(loc = 0, prop = {'size':8})
-	plt.tight_layout()
-	plt.savefig((f"{dataset_name} - " if dataset_name else '') + f"Comparison.jpg", dpi = 300)
-	if config.show_plots: plt.show()
+    plt.figure(figsize = (10,7))
+    sns.barplot(data = eval_df, x = metric_x, y = 'Value', hue = metric_hue)
+    plt.title(f"Model Comparison", fontsize = 15)
+    plt.xticks(rotation = 0)
+    plt.ylim(eval_df['Value'].min() * 0.8, eval_df['Value'].max() * 1.05)
+    plt.legend(loc = 0, prop = {'size':8})
+    plt.tight_layout()
+    if not os.path.exists(config.plot_folder): os.makedirs(config.plot_folder)
+    plt.savefig((f"{config.plot_folder} + {dataset_name} - " if dataset_name else '') + f"Comparison.jpg", dpi = 300)
+    if config.show_plots: plt.show()
 
-	return eval_df
+    return eval_df
 
 
 
 def model_CrossValScoresPlot(models:list, X, y, scoring = 'accuracy', cv = 3, plots_type = ['boxplot', 'barplot']):
-	"""
+    """
     Plot cross-validation scores for multiple models.
 
     Parameters:
     - models: list
-              List of unfitted models with parameters, e.g., [Model(param=1)].
+                List of unfitted models with parameters, e.g., [Model(param=1)].
     - X: numpy array or pandas DataFrame, shape (n_samples, n_features)
-         Feature matrix.
+            Feature matrix.
     - y: numpy array or pandas Series, shape (n_samples,)
-         Target vector.
+            Target vector.
     - scoring: str, default='accuracy'
-               Scoring method for cross-validation.
+                Scoring method for cross-validation.
     - cv: int or cross-validation generator, default=3
-          Number of folds for cross-validation.
+            Number of folds for cross-validation.
     - plots_type: list of str, default=['boxplot', 'barplot']
-                  Types of plots to generate ('boxplot' and/or 'barplot').
+                    Types of plots to generate ('boxplot' and/or 'barplot').
 
     Returns:
     - df_score: pandas DataFrame
                 DataFrame containing cross-validation scores for each model.
     """
-	score_dic = {}
-     
-	for model in models:
-		print(f"- Cross validation: {type(model).__name__}")
-		score_dic[type(model).__name__] = cross_val_score(model, X, y, scoring = scoring, cv = cv)
-	df_score = pd.DataFrame(score_dic)
+    score_dic = {}
+        
+    for model in models:
+        print(f"- Cross validation: {type(model).__name__}")
+        score_dic[type(model).__name__] = cross_val_score(model, X, y, scoring = scoring, cv = cv)
+    df_score = pd.DataFrame(score_dic)
 
-	# box plot
-	if 'boxplot' in plots_type:
-		plt.figure(figsize = (12, 6))
-		plt.boxplot([df_score[col] for col in df_score.columns])
-		s = pd.concat([df_score[col].rename("scoring") for col in df_score.columns], axis=0)
-		plt.ylim(s.min() * 0.7, s.max() * 1.2)
-		plt.xticks(range(1, len(df_score.columns) + 1), df_score.columns)
-		plt.ylabel(scoring)
-		plt.xlabel("Models")
-		plt.title("Model Comparison - Cross Validation")
-		plt.savefig("Model Comparison - Cross Validation.jpg",dpi=300)
-		if config.show_plots: plt.show()
-	
+    # box plot
+    if 'boxplot' in plots_type:
+        plt.figure(figsize = (12, 6))
+        plt.boxplot([df_score[col] for col in df_score.columns])
+        s = pd.concat([df_score[col].rename("scoring") for col in df_score.columns], axis=0)
+        plt.ylim(s.min() * 0.7, s.max() * 1.2)
+        plt.xticks(range(1, len(df_score.columns) + 1), df_score.columns)
+        plt.ylabel(scoring)
+        plt.xlabel("Models")
+        plt.title("Model Comparison - Cross Validation")
+        if not os.path.exists(config.plot_folder): os.makedirs(config.plot_folder)
+        plt.savefig(f"{config.plot_folder} + Model Comparison - Cross Validation.jpg",dpi=300)
+        if config.show_plots: plt.show()
+
     # bar plot
-	if 'barplot' in plots_type:
-		score_mean = df_score.mean(axis = 0)
-		plt.figure(figsize = (12, 6))
-		# 画柱形图
-		x = score_mean.index
-		y = score_mean
-		plt.bar(x, y)
-		for i, j in zip(range(len(x)), y):
-			plt.text(i, j, '{:.4}'.format(j), va = 'bottom', ha = 'center')
-		plt.ylabel(scoring)
-		plt.xlabel("Models")
-		plt.ylim(y.min() * 0.7, y.max() * 1.2)
-		plt.title(f"Model Comparison - {scoring}")
-		plt.savefig(f"Model Comparison - {scoring}.jpg", dpi = 300)
-		if config.show_plots: plt.show()
-          
-	return df_score
+    if 'barplot' in plots_type:
+        score_mean = df_score.mean(axis = 0)
+        plt.figure(figsize = (12, 6))
+        # 画柱形图
+        x = score_mean.index
+        y = score_mean
+        plt.bar(x, y)
+        for i, j in zip(range(len(x)), y):
+            plt.text(i, j, '{:.4}'.format(j), va = 'bottom', ha = 'center')
+        plt.ylabel(scoring)
+        plt.xlabel("Models")
+        plt.ylim(y.min() * 0.7, y.max() * 1.2)
+        plt.title(f"Model Comparison - {scoring}")
+        plt.savefig(f"{config.plot_folder} + Model Comparison - {scoring}.jpg", dpi = 300)
+        if config.show_plots: plt.show()
+            
+    return df_score
 
 
 
