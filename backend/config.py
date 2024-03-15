@@ -12,8 +12,8 @@ from sklearn.tree import DecisionTreeClassifier
 
 Path = (os.path.split(os.path.realpath(__file__))[0] + "/").replace("\\\\", "/").replace("\\", "/")
 ##################################################Config##################################################
-eeg_file = "D:\CloudFile\SynologyDrive\Don\Ottawa\Study\CSI 7163 - Multimeida Communications\Project\Phase 3\Dataset\EEG (EO, AC1, AC2).xlsx"
-ecg_file = "D:\CloudFile\SynologyDrive\Don\Ottawa\Study\CSI 7163 - Multimeida Communications\Project\Phase 3\Dataset\ECG (EO, AC1, AC2).xlsx"
+eeg_file = Path + "Assets/dataset/EEG (EO, AC1, AC2).xlsx"
+ecg_file = Path + "Assets/dataset/ECG (EO, AC1, AC2).xlsx"
 Assets_folder = Path + "Assets/"
 model_folder = Assets_folder + "models/"
 plot_folder = Assets_folder + "plots/"
