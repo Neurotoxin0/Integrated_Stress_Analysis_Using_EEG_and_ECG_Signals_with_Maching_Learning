@@ -1,5 +1,5 @@
 import os, pickle
-import config
+import config, test_data_generator
 import numpy as np
 
 
@@ -10,7 +10,7 @@ os.chdir(Path)
 models = ['DecisionTreeClassifier', 'RandomForestClassifier', 'GradientBoostingClassifier', 'SVC', 'MLPClassifier']
 model = models[4]
 
-
+'''
 inputs = np.array(
 	[[-0.17187095,  0.03125514,  0.1973567 ,  0.19280349,  0.15937716,
         0.14293361, -0.20381281, -0.73818189,  0.19498868,  0.7425749 ,
@@ -27,6 +27,10 @@ inputs = np.array(
        -0.71512856, -0.27808073, -0.40093892, -0.41437903,  0.41723737,
        -0.38110601, -0.33821837]]
 )
+'''
+
+# use the test_data_generator to generate a random input
+inputs = test_data_generator.generate()
 
 with open(config.model_folder + 'LBE.pkl','rb') as f:
 	lbe = pickle.load(f)
