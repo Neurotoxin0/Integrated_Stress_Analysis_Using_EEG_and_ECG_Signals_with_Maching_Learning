@@ -22,8 +22,8 @@ def run(input):
         trained_model = pickle.load(f)
         
     input = scaler.transform(input)
-    pca_input = pca.transform(input)
-    y_pred = trained_model.predict(pca_input)
+    input = pca.transform(input)
+    y_pred = trained_model.predict(input)
     pred_label = lbe.inverse_transform(y_pred)
     
     print(f"Prediction Result: {pred_label}")
