@@ -1,0 +1,50 @@
+from django.shortcuts import render
+from django.http import JsonResponse,HttpResponse
+import subprocess
+from django.views.decorators.csrf import csrf_exempt
+import json
+import os
+
+@csrf_exempt  
+def deal_post_request(request):
+    '''#code for getting relative path of the script who runs model. will be reused if file structure of the project changes
+    print('===============cwd===============')
+    print(os.getcwd())
+    abs_path = 'E:/Integrated_Stress_Analysis_Using_EEG_and_ECG_Signals_with_Maching_Learning/MLalgorithm/run_model.py'
+    rela_path = os.path.relpath(abs_path,os.getcwd())
+    print(rela_path)
+    '''
+    relative_path = '../MLalgorithm/run_model.py'
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            data = data['param']
+            data = json.loads(data)
+            model_name = data['model_name']
+            input_features = data['input_features']
+            #parameter sent to the subprocess is in JSON format
+            param = {
+                "model_name": model_name,
+                "input_features": input_features
+            }
+            json_param = json.dumps(param)
+            #run the .py and capture its output (print). The output is returned to the varable result.
+            result = subprocess.run(['python', relative_path, json_param], 
+                                    capture_output=True, text=True)
+            print('-----------------================')
+            print(result.stdout)
+            return JsonResponse({'success': True, 'result':result.stdout})
+        except json.JSONDecodeError:
+            return HttpResponse('Invalid JSON', status=400)
+    else:
+        return HttpResponse('Only POST method is accepted', status=405)
+
+
+'''
+def run_python_script(request):
+    param = request.GET.get('param', 'default')
+
+    result = subprocess.run(['python', 'path/to/your_script.py', param], capture_output=True, text=True)
+
+    return JsonResponse({'output': result.stdout, 'error': result.stderr if result.stderr else ''})
+'''
