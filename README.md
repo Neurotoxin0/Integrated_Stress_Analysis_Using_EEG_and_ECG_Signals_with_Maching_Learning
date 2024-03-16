@@ -13,21 +13,22 @@ This README file is designed to guide anyone, including those with no prior know
 - **Software:**
   - Operation System: Windows 11
   - IDE: Strongly Recommend Visual Studio Code, which is used to develop this project.
-  - **For Front-End:**
-  - (You do not need to install all the packages one by one. 
-    You just need to install NodeJS and run this command: 
-    npm install
-    in the root directory of front-end project: \Integrated_Stress_Analysis_Using_EEG_and_ECG_Signals_with_Maching_Learning\frontend\MindHeartSync)
+  
+  - **For Front-End Angular Application**
+  - (You do not need to install all the packages one by one. You just need to install NodeJS, change to the directory of `/frontend/MindHeartSync` and run `npm install`)
   - NodeJS: v18.19.0
   - Angular: v17.1.3
   - Angular Material: v17.2.1
   - ng-zorro-antd: v17.2.0
   - swiper: v11.0.7
   - Typescript: v5.3.3 (usually automatically installed with Angular)
+  
   - **For Back-End Django Server:**
   - Django: v5.0.3
   - Python: v3.11.5
+  
   - **For Machine Learning Models:**
+  - (To install required packages, execute `pip install -r MLalgorithm/requirements.txt`)
   - matplotlib: v3.8.2
   - numpy: 1.22.0
   - pandas: 1.5.3
@@ -43,7 +44,7 @@ This README file is designed to guide anyone, including those with no prior know
 This project was a collaborative effort, and each team member played a crucial role:
 
 - Yang Xu:
-  - Machine Learning Algorithms
+  - Machine Learning Algorithms (Data Processing, Training, Validation, Plot, Export and Import Usage, etc.)
 
 - Xilai Wang:
   - User Friendly Application (Angular Front-End UI and Django Back-End Server)
@@ -89,7 +90,7 @@ This project outputs a user-friendly, no coding required application which utili
 
 #### Machine Learning Algorithm
 
-- To install required packages, execute `pip install -r requirements.txt`.
+- To install required packages, execute `pip install -r MLalgorithm/requirements.txt`.
 - The configuration settings necessary for the application are specified in `MLalgorithm/config.py`.
 - Path configurations have been designed to automatically adjust, eliminating the need for manual changes under standard usage scenarios.
 - The model training process is initiated by running `MLalgorithm/main.py`. This step is crucial for the subsequent analysis as it generates trained model files for subsequent usage.
@@ -98,6 +99,6 @@ This project outputs a user-friendly, no coding required application which utili
 
 ---
 
-By following these instructions, anyone should be able to successfully set up and run the project. If you encounter any issues or have questions, feel free to contact xwang736@uottawa.ca and [xuyang's email].
+By following these instructions, anyone should be able to successfully set up and run the project. If you encounter any issues or have questions, feel free to contact xwang736@uottawa.ca and yxu319@uottawa.ca
 
 Thank you for using our project!
