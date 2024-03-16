@@ -1,3 +1,5 @@
+/*Author: Xilai Wang*/
+/*the root component of the whole Angular application. */
 import { Component,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';

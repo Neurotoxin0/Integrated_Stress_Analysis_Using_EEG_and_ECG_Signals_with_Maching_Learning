@@ -1,6 +1,7 @@
 """
 @Description :   
 @Author      :   Yang Xu
+Modified by Xilai Wang to enable input from and output to the Django back-end server.
 """
 
 import os, pickle

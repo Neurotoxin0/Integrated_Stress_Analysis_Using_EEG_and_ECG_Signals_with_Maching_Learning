@@ -1,3 +1,5 @@
+/*Author: Xilai Wang*/
+/*This component corresponds to the menu where user can select among 3 functions: manual input, hardware connection and history */
 import { Component } from '@angular/core';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -10,7 +12,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
-
+/*No extra comments needed. The structure is as clearly shown in the HTML template.*/
 @Component({
   selector: 'app-menu',
   standalone: true,

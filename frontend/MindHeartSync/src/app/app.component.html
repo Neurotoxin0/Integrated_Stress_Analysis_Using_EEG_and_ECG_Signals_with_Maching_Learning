@@ -1,11 +1,12 @@
-<!-- 这是根页面，angular是单页面应用，只有一个页面，他是通过控制url地址上的路由改变router-outlet路由的组件的 -->
+<!--author: Xilai Wang-->
+<!-- This is the root page. Angular is a single-page application, which means it has only one page. It controls the change of components in the router-outlet by manipulating the routes in the URL. -->
 <nz-layout>
   <nz-header routerLink='welcome' >     
     <nz-avatar [nzShape]="'square'" [nzSize]="120" [nzIcon]="'user'" nzSrc="../assets/logo.png"></nz-avatar>
     <b id = "company_name" >Mind Heart Sync</b>
   </nz-header>
   <nz-content>
-     <!-- 这是路由占位符 -->
+     <!-- This is a router placeholder. -->
     <router-outlet></router-outlet>
   </nz-content>
 </nz-layout>

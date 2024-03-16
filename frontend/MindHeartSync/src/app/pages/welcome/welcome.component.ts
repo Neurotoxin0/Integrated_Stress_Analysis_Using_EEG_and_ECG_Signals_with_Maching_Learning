@@ -1,3 +1,5 @@
+/*Author: Xilai Wang*/
+/*this is the welcome page, a.k.a. home page of the website. */
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
@@ -12,7 +14,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { RouterModule } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import Swiper from 'swiper';
-
+/*this welcome page contains a casousel showcasing multiple use scenario and users of our application and a button to get started. */
 @Component({
   selector: 'app-welcome',
   standalone: true,
@@ -27,25 +29,28 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
+    //some settings about swiper.
+    //this is the latest version of swiper, and it has lots of bugs, or it does not work very well with Angular 17.
+    //therefore I've written some extra codes to fix the bugs.
     this.swiper = new Swiper('.swiper', {
       direction: 'horizontal', 
-      loop: true, // 循环模式选项
+      loop: true, 
   
-      slidesPerView: "auto", // 不抽搐
+      slidesPerView: "auto", 
       observer: true,
       observeParents: false,
       // autoplay: true,
       autoplay: {
-        disableOnInteraction: false,  //触碰后自动轮播也不会停止
+        disableOnInteraction: false,  
         delay: 2500,
       },
 
-      // 如果需要分页器
+      
       pagination: {
         el: '.swiper-pagination',
       },
       grabCursor: true,
-      // 如果需要前进后退按钮
+      
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',

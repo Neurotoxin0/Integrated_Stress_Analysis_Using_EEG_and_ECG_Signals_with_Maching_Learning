@@ -1,3 +1,5 @@
+/*Author: Xilai Wang*/
+/*This component is to tell users that this function is under development and will be released in future versions. */
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NzImageModule } from 'ng-zorro-antd/image';

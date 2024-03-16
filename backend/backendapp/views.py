@@ -1,11 +1,12 @@
+'''Author: Xilai Wang'''
 from django.shortcuts import render
 from django.http import JsonResponse,HttpResponse
 import subprocess
 from django.views.decorators.csrf import csrf_exempt
 import json
 import os
-
-@csrf_exempt  
+# this view is the link between Angular front-end and the machine learning models.
+@csrf_exempt    # don't do this in industry!
 def deal_post_request(request):
     '''#code for getting relative path of the script who runs model. will be reused if file structure of the project changes
     print('===============cwd===============')
@@ -15,6 +16,7 @@ def deal_post_request(request):
     print(rela_path)
     '''
     relative_path = '../MLalgorithm/run_model.py'
+    #get user input from front-end.
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -28,11 +30,13 @@ def deal_post_request(request):
                 "input_features": input_features
             }
             json_param = json.dumps(param)
-            #run the .py and capture its output (print). The output is returned to the varable result.
+            #run the .py script which runs the model and capture its output (printout). The output is returned to the varable result.
             result = subprocess.run(['python', relative_path, json_param], 
                                     capture_output=True, text=True)
+            '''for testing uses.
             print('-----------------================')
             print(result.stdout)
+            '''
             return JsonResponse({'success': True, 'result':result.stdout})
         except json.JSONDecodeError:
             return HttpResponse('Invalid JSON', status=400)
@@ -40,11 +44,3 @@ def deal_post_request(request):
         return HttpResponse('Only POST method is accepted', status=405)
 
 
-'''
-def run_python_script(request):
-    param = request.GET.get('param', 'default')
-
-    result = subprocess.run(['python', 'path/to/your_script.py', param], capture_output=True, text=True)
-
-    return JsonResponse({'output': result.stdout, 'error': result.stderr if result.stderr else ''})
-'''

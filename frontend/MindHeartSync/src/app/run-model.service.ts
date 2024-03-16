@@ -1,3 +1,5 @@
+/*Author: Xilai Wang*/
+/*this service connects the front-end and back-end server. this service is used in userinput component. */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 

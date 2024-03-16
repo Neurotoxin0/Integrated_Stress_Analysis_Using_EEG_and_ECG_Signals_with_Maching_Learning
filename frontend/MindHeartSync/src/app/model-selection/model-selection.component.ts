@@ -1,3 +1,6 @@
+/*Author: Xilai Wang*/
+/*This component shows user 5 respective machine learning models, and user can freely choose one model to assess the stress. */
+
 import { Component } from '@angular/core';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -14,7 +17,7 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-
+/* the HTML template: showcasing the names and icons representing 5 models. clicking the card will select the corresponding model and proceed to data input.*/
 @Component({
   selector: 'app-model-selection',
   standalone: true,
@@ -38,7 +41,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
           (click) = "sel_model('mlp')"
         >
           <nz-list-item-meta-title>
-            MLP Classifier ( best and most recommended )
+            MLP Classifier ( recommend )
           </nz-list-item-meta-title>
         </nz-list-item-meta>
 
@@ -105,7 +108,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrl: './model-selection.component.scss'
 })
 export class ModelSelectionComponent {
-  
+  //get the model that user choose. This will decide which model will be chosen defaultly in the userinput page.
   model_chosen:string='';
   sel_model(modelname: string){
     this.model_chosen = modelname;
