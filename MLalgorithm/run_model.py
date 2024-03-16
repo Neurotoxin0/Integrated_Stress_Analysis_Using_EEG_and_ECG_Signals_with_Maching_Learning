@@ -7,6 +7,11 @@ import pandas as pd
 import config
 import numpy as np
 
+
+Path = (os.path.split(os.path.realpath(__file__))[0] + "/").replace("\\\\", "/").replace("\\", "/")
+os.chdir(Path)
+
+
 #get the model selected and the input features for ML model.
 parser = argparse.ArgumentParser(description='Run the Machine Learning models and return the prediction results.')
 parser.add_argument('json_param', type=str, help='A JSON string containing the model name (string) and input features (float[67]).')
@@ -29,9 +34,6 @@ elif model_name == "dtc":
 elif model_name == "rfc":
 	model = models[1]
 
-Path = (os.path.split(os.path.realpath(__file__))[0] + "/").replace("\\\\", "/").replace("\\", "/")
-os.chdir(Path)
-
 
 with open(config.model_folder + 'Scaler.pkl','rb') as f:
     scaler = pickle.load(f)
@@ -50,7 +52,6 @@ y_pred = trained_model.predict(input)
 pred_label = lbe.inverse_transform(y_pred)
 print(pred_label)    
     
-
 
 '''for testing
 iters = 100
