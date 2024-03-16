@@ -12,6 +12,7 @@ This README file is designed to guide anyone, including those with no prior know
 
 - **Software:**
   - NodeJS  (version: !!!!!!!!!!!!!!!!!!)
+  - Django  (version: !!!!!!!!!!!!!!!!!!)
   - Python  (version: 3.10)
 
 ---
@@ -22,9 +23,12 @@ This project was a collaborative effort, and each team member played a crucial r
 
 - Yang Xu:
   - Machine Learning Algorithm
+  - !!!!!!!!!!!
 
 - Xilai Wang:
   - User Friendly Interface
+  - !!!!!!!!!!!
+
 
 ---
 
@@ -37,13 +41,13 @@ This project aims to analyze stress levels by integrating Electroencephalogram (
 
 ### Instructions for Setup and Execution:
 
-#### Front-End (Responsible: XiLai Wang)
+#### User Friendly Interface
 
 *Further information on the user interface will be provided.*
 
 ---
 
-#### Machine Learning Algorithm (Responsible: Yang Xu)
+#### Machine Learning Algorithm
 
 - To install required packages, execute `pip install -r requirements.txt`.
 - The configuration settings necessary for the application are specified in `backend/config.py`.
