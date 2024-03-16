@@ -1,0 +1,17 @@
+img{
+    width:100%;
+    height:auto;
+    object-fit: contain;
+    align-items:center;
+    justify-content:center;
+}
+
+::ng-deep nz-card-meta .ant-card-meta-title {
+    //font-family: 'YourFontFamily', sans-serif; /* 更改为你希望的字体 */
+    font-size: 32px; /* 自定义字体大小 */
+    /* 其他需要改变的样式 */
+  }
+
+nz-card-meta{
+    font-size: 20px;
+}

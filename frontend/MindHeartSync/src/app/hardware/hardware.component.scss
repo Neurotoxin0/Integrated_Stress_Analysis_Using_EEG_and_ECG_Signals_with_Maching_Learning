@@ -1,0 +1,29 @@
+.hardwaretext{
+    display : flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      font-size: xx-large;
+      color:cadetblue;
+  }
+  
+#hardwareback{
+    display : flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      font-size:xx-large;
+      padding : 13px 32px;
+
+      cursor: pointer;
+}
+
+#unavailable{
+    display : flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+    opacity: 0.3;
+    width: 300px;
+    height: auto;
+}

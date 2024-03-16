@@ -1,0 +1,46 @@
+<nz-page-header
+      class="site-page-header"
+      routerLink="/model-selection"
+      nzBackIcon="left"
+      nzTitle="Back"
+      
+    ></nz-page-header>
+<nz-divider></nz-divider>
+
+Choose a Model   
+<nz-radio-group [(ngModel)]="radioValue" nzButtonStyle="solid" class = "text-container">
+   <label nz-radio-button nzValue="mlp" class = "text-container">MLP Classifier (best)</label>
+   <label nz-radio-button nzValue="svc" class = "text-container">Support Vector Classifier</label>
+   <label nz-radio-button nzValue="gbc" class = "text-container">Gradient Boosting Classifier</label>
+   <label nz-radio-button nzValue="dtc" class = "text-container">Decision Tree Classifier</label>
+   <label nz-radio-button nzValue="rfc" class = "text-container">Random Forest Classifier</label>
+</nz-radio-group>
+
+
+<nz-divider nzText="Upload your ECG information here."> </nz-divider>
+<p>(use space or line break to separate two parameters.)</p>
+<p>Mean HR (bpm)	AVNN (ms)	SDNN (ms)	NN50 (beats)	pNN50 (%)	RMSSD (ms)	LF (ms2)	LF Norm (n.u.)	HF (ms2)	HF Norm (n.u.)	LF/HF Ratio
+</p>
+<textarea rows="4"  nz-input  #ecg></textarea>
+
+<nz-divider nzText="Upload your EEG information here." ></nz-divider>
+<p>Input  Fp1  Fp2  F3  F4  T3  T4  P3  P4  of the required frequencies respectively.</p>
+<p>(use space or line break to separate two parameters.)</p>
+<p>Delta (1-4 Hz)</p>
+<textarea rows="4"  nz-input  #eeg_delta></textarea>
+<p>Theta (4-8 Hz)</p>
+<textarea rows="4"  nz-input  #eeg_theta></textarea>
+<p>Alpha (8-12 Hz)</p>
+<textarea rows="4"  nz-input  #eeg_alpha></textarea>
+<p>Beta 1 (12-20 Hz)</p>
+<textarea rows="4"  nz-input  #eeg_beta1></textarea>
+<p>Beta 2 (20-30 Hz)</p>
+<textarea rows="4"  nz-input  #eeg_beta2></textarea>
+<p>Gamma 1 (30-60 Hz)</p>
+<textarea rows="4"  nz-input  #eeg_gamma1></textarea>
+<p>Gamma 2 (60-100 Hz)</p>
+<textarea rows="4"  nz-input  #eeg_gamma2></textarea>
+
+<nz-divider></nz-divider>
+
+<button nz-button nzType="primary" (click)="submit_data(radioValue,ecg.value,eeg_delta.value,eeg_theta.value,eeg_alpha.value,eeg_beta1.value,eeg_beta2.value,eeg_gamma1.value,eeg_gamma2.value)" >Submit</button>

@@ -1,0 +1,28 @@
+.site-page-header{
+    cursor: pointer;
+}
+
+
+::ng-deep .site-page-header .ant-page-header-heading-title {
+    //font-family: 'YourFontFamily', sans-serif; 
+    font-size: 29px; 
+    //color: #333; 
+}
+
+::ng-deep .ant-avatar {
+    width: 100px; 
+    height: 100px; 
+    line-height: 100px; 
+  }
+
+::ng-deep .ant-list-item-meta-title {
+    display: flex;
+    font-size: 30px;
+    //text-align: center;
+    align-items: center;
+    height: 100%;
+  }
+
+nz-list-item-meta{
+    cursor: pointer;
+}
