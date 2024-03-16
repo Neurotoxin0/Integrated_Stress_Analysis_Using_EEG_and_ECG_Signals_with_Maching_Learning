@@ -1,6 +1,5 @@
 import os, pickle
 import config, test_data_generator
-import numpy as np
 import tqdm as tqdm
 
 
@@ -32,8 +31,9 @@ def run(input):
 
 
 if __name__ == "__main__":
-    rdm_seed = [i for i in range(10)]
-    for i in tqdm.tqdm(range(10)):
+    iters = 100
+    rdm_seed = [i for i in range(iters)]
+    for i in tqdm.tqdm(range(iters)):
         input = test_data_generator.generate(rdm_seed[i])
         run(input)
 
