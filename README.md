@@ -14,7 +14,9 @@ This README file is designed to guide anyone, including those with no prior know
   - Operation System: Windows 11
   - IDE: Strongly Recommend Visual Studio Code, which is used to develop this project.
   
-  - **For Front-End Angular Application**
+  ---
+  
+  **For Front-End Angular Application**
   - (You do not need to install all the packages one by one. You just need to install NodeJS, change to the directory of `/frontend/MindHeartSync` and run `npm install`)
   - NodeJS: v18.19.0
   - Angular: v17.1.3
@@ -22,12 +24,16 @@ This README file is designed to guide anyone, including those with no prior know
   - ng-zorro-antd: v17.2.0
   - swiper: v11.0.7
   - Typescript: v5.3.3 (usually automatically installed with Angular)
+ 
+  ---
   
-  - **For Back-End Django Server:**
+  **For Back-End Django Server:**
   - Django: v5.0.3
   - Python: v3.11.5
+ 
+  --- 
   
-  - **For Machine Learning Models:**
+  **For Machine Learning Models:**
   - (To install required packages, execute `pip install -r MLalgorithm/requirements.txt`)
   - matplotlib: v3.8.2
   - numpy: 1.22.0
