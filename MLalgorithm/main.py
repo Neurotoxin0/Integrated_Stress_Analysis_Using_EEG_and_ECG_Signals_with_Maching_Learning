@@ -131,7 +131,7 @@ def main():
     model_CrossValScoresPlot(models, X, y, scoring = 'accuracy', cv = 5)
 
 
-def PCA_n(X_scaled):    #主成分分析
+def PCA_n(X_scaled):
     """
     Perform Principal Component Analysis (PCA) and plot the cumulative explained variance ratio.
 
@@ -250,10 +250,10 @@ def evaluation(model = None, X_test = None, y_test = None, y_pred = None, model_
     # if classification model
     if model_type == 'classification':
         from sklearn.metrics import classification_report
-        from sklearn.metrics import accuracy_score      #正确率
-        from sklearn.metrics import precision_score	    #精准率
-        from sklearn.metrics import recall_score	    #召回率
-        from sklearn.metrics import f1_score		    #F1值
+        from sklearn.metrics import accuracy_score
+        from sklearn.metrics import precision_score
+        from sklearn.metrics import recall_score
+        from sklearn.metrics import f1_score
         # metrics['cls_report'] = classification_report(y_test, y_pred)
         metrics['accuracy']     = accuracy_score(y_test,y_pred)
         metrics['precision']    = precision_score(y_test,y_pred,average='macro')
