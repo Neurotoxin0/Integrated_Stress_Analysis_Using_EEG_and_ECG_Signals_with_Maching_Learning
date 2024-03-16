@@ -410,7 +410,6 @@ def model_CrossValScoresPlot(models:list, X, y, scoring = 'accuracy', cv = 3, pl
     if 'barplot' in plots_type:
         score_mean = df_score.mean(axis = 0)
         plt.figure(figsize = (12, 6))
-        # 画柱形图
         x = score_mean.index
         y = score_mean
         plt.bar(x, y)
