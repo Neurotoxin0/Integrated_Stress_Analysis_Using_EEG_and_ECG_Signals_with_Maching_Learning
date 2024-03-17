@@ -33,10 +33,10 @@ def deal_post_request(request):
             #run the .py script which runs the model and capture its output (printout). The output is returned to the varable result.
             result = subprocess.run(['python', relative_path, json_param], 
                                     capture_output=True, text=True)
-            '''for testing uses.
+            
             print('-----------------================')
-            print(result.stdout)
-            '''
+            print(result.stderr)
+            
             return JsonResponse({'success': True, 'result':result.stdout})
         except json.JSONDecodeError:
             return HttpResponse('Invalid JSON', status=400)
