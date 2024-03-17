@@ -17,7 +17,7 @@ import numpy as np
 Path = (os.path.split(os.path.realpath(__file__))[0] + "/").replace("\\\\", "/").replace("\\", "/")
 os.chdir(Path)
 
-
+#=======Section 1: accepting arguments from Django server and pre-process them. Written by Xilai Wang=========== 
 #get the model selected and the input features for ML model.
 parser = argparse.ArgumentParser(description='Run the Machine Learning models and return the prediction results.')
 parser.add_argument('json_param', type=str, help='A JSON string containing the model name (string) and input features (float[67]).')
@@ -38,7 +38,7 @@ elif model_name == "dtc":
 elif model_name == "rfc":
 	model = models[1]
 
-
+#=======Section 2: Running model to do prediction and output the result. Written by Yang Xu.=========== 
 #model = 'MLPClassifier'   # manual debug usage
 with open(config.model_folder + 'Scaler.pkl','rb') as f:
     scaler = pickle.load(f)
