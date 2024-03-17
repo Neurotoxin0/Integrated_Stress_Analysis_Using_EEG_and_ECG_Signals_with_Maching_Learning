@@ -47,7 +47,7 @@ This README file is designed to guide anyone, including those with no prior know
 
 ### Contributors:
 
-This project was a collaborative effort, and each team member played a crucial role:
+This project was a collaborative effort, and each team member played a crucial and even role:
 
 - Yang Xu:
   - Machine Learning Algorithms (Data Processing, Training, Validation, Plot, Export and Import Usage, etc.)
@@ -59,7 +59,7 @@ This project was a collaborative effort, and each team member played a crucial r
 
 ## Project Overview
 
-This project outputs a user-friendly, no coding required application which utilizes machine learning technique to conduct non-clinical, real-time stress assessment using both ECG and EEG siganls as input. It automates the interpretation of physiological data, facilitating easier access to mental health care, for research and educational purpose. This project integrates multiple types of media to deliver social good.
+This project outputs a user-friendly, no coding required application which utilizes machine learning technique to conduct non-clinical, real-time stress assessment using both ECG and EEG siganls as input. It automates the interpretation of physiological data, facilitating easier access to mental health care, for research and educational purpose; And this project integrates multiple types of media to deliver social good.
 
 ---
 
@@ -101,7 +101,8 @@ This project outputs a user-friendly, no coding required application which utili
 - Path configurations have been designed to automatically adjust, eliminating the need for manual changes under standard usage scenarios.
 - The model training process is initiated by running `MLalgorithm/main.py`. This step is crucial for the subsequent analysis as it generates trained model files for subsequent usage.
 - The models that have been trained and their corresponding performance plots will be stored in `MLalgorithm/Assets/models` and `MLalgorithm/Assets/plots`, respectively.
-- The `run_model.py` script contains a `run` function that will load trained models and processes inputs combining EEG and ECG data. Detailed information on the expected format of the input data will be print out by running `test_data_generator.py`.
+- The `run_model.py` script loads trained standardizing scalar, encoder, PCA model, requested machine learning models respectively, along with processing inputs that combine EEG and ECG data, to predict current estimated stress level.
+- Detailed information about the expected format of the input data can be printed by running `test_data_generator.py`.
 
 ---
 
