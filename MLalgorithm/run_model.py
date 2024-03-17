@@ -26,8 +26,6 @@ params = json.loads(args.json_param)
 model_name = params["model_name"]     # one of mlp, svc, gbc, dtc, rfc. 
 input_features = params["input_features"]    # float[67]
 
-
-model = 'MLPClassifier'
 models = ['DecisionTreeClassifier', 'RandomForestClassifier', 'GradientBoostingClassifier', 'SVC', 'MLPClassifier']
 if model_name == "mlp":
 	model = models[4]
@@ -41,6 +39,7 @@ elif model_name == "rfc":
 	model = models[1]
 
 
+#model = 'MLPClassifier'   # manual debug usage
 with open(config.model_folder + 'Scaler.pkl','rb') as f:
     scaler = pickle.load(f)
 with open(config.model_folder + 'LBE.pkl','rb') as f:
@@ -50,6 +49,8 @@ with open(config.model_folder + 'PCA.pkl','rb') as f:
 with open(config.model_folder + model + '.pkl','rb') as f:
     trained_model = pickle.load(f)
 
+
+#input = test_data_generator.generate() # generate a random input for testing
 input = [input_features]
 input = pd.DataFrame(input, columns = config.features)
 input = scaler.transform(input)
@@ -58,12 +59,3 @@ y_pred = trained_model.predict(input)
 pred_label = lbe.inverse_transform(y_pred)
 print(pred_label)    
     
-
-'''for testing
-iters = 100
-rdm_seed = [i for i in range(iters)]
-for i in tqdm.tqdm(range(iters)):
-    input = test_data_generator.generate(rdm_seed[i])
-    run(input)
-'''
-  
