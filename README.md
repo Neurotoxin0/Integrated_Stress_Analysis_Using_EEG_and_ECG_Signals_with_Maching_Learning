@@ -106,6 +106,6 @@ This project outputs a user-friendly, no coding required application which utili
 
 ---
 
-By following these instructions, anyone should be able to successfully set up and run the project. If you encounter any issues or have questions, feel free to contact `[xwang736@uottawa.ca](mailto:xwang736@uottawa.ca)` and `[yxu319@uottawa.ca](mailto:yxu319@uottawa.ca)`
+By following these instructions, anyone should be able to successfully set up and run the project. If you encounter any issues or have questions, feel free to contact [xwang736@uottawa.ca](mailto:xwang736@uottawa.ca) and [yxu319@uottawa.ca](mailto:yxu319@uottawa.ca)
 
 Thank you for using our project!
